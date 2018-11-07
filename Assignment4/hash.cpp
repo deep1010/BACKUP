@@ -77,7 +77,8 @@ void open(string filename, int M,int flag)
 			vector<string> record;
 			record = map_for_hashing[hash_block];
 
-			std::ofstream output_file(fname);
+			std::ofstream output_file;
+      output_file.open(fname,fstream::app);
 	    std::ostream_iterator<std::string> output_iterator(output_file, "\n");
 	    std::copy(record.begin(), record.end(), output_iterator);
 	    output_file.close();
@@ -103,7 +104,8 @@ void open(string filename, int M,int flag)
 			else
 				fname = "temp_file_s" + to_string(num) + ".txt";
 
-			std::ofstream output_file(fname);
+      std::ofstream output_file;
+      output_file.open(fname,fstream::app);
 	    std::ostream_iterator<std::string> output_iterator(output_file, "\n");
 	    std::copy(record.begin(), record.end(), output_iterator);
 
@@ -324,6 +326,7 @@ void remove_temp_file(int M)
 }
 void hash_join(string file_name_R,string file_name_S,int blocks_allowed)
 {
+  remove_temp_file(blocks_allowed);
 	map_for_hashing.clear();
 	open(file_name_R,blocks_allowed,0);
 	map_for_hashing.clear();
@@ -333,6 +336,7 @@ void hash_join(string file_name_R,string file_name_S,int blocks_allowed)
 	remove_temp_file(blocks_allowed);
 
 }
+
 int main(int argc,char * argv[])
 {
 	cin.tie(0);cout.tie(0);
